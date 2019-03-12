@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
+	
+	<!-- 启用debug -->
+	<!-- 
+	<debug />
+	 -->
 
+	<!-- 全局使用注解 -->
+	<global-method-security pre-post-annotations="enabled" />
+	
+	
+	<http pattern="/static/**" security="none"  />
+	<http pattern="/loggedout.jsp" security="none"  />
+
+	<http auto-config="true" >
+		<!-- 
+		<intercept-url pattern="/secure/extreme/**" access="hasAuthority('supervisor')"/>
+		 -->
+		<intercept-url pattern="/admin/**"  access="authenticated" />
+		<intercept-url pattern="/**" access="permitAll" />
+		<!-- username与password登录 -->
+		<form-login  />
+		<!-- 登出地址 -->
+		<logout />
+		<!-- 记住登录, 需要提供记住登录认证提供者 -->
+		<remember-me />
+		<!-- 系统超时 -->
+		<session-management invalid-session-url="/timeout.jsp">
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		</session-management>
+
+	</http>
+
+	<!-- 加密 -->
+	<beans:bean id="bcPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	
+	<!-- 认证管理 -->
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder ref="bcPasswordEncoder"/>
+			<user-service>
+				<user name="rod" password="$2a$10$75pBjapg4Nl8Pzd.3JRnUe7PDJmk9qBGwNEJDAlA3V.dEJxcDKn5O" authorities="supervisor, user, teller" />
+				<user name="dianne" password="$2a$04$bCMEyxrdF/7sgfUiUJ6Ose2vh9DAMaVBldS1Bw2fhi1jgutZrr9zm" authorities="user,teller" />
+				<user name="scott" password="$2a$06$eChwvzAu3TSexnC3ynw4LOSw1qiEbtNItNeYv5uI40w1i3paoSfLu" authorities="user" />
+				<user name="root" password="{noop}root" authorities="user" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
 	
 	
 
-
-</beans>
+</beans:beans>
