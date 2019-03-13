@@ -12,7 +12,10 @@
 	
 
 	<!-- 加载security文件 -->
-	<import resource="spring-security.xml"  />
+	<import resource="spring/spring-security.xml"  />
+	
+	<!-- 加载数据源 -->
+	<import resource="spring/spring-datasource.xml"  />
 	
 	
 
