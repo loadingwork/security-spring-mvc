@@ -5,12 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 		
-	<description>配置数据源</description>
 		
-		
-	<!-- 选datasource其中的数据源 -->
-	<import resource="datasource/spring-datasource-druid.xml"/>	
-	
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+			<property name="dataSource"  ref="dataSource" />
+		</bean>
 
 
 </beans>
