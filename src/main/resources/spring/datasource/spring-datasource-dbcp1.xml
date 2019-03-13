@@ -7,10 +7,10 @@
 		
 		
 		
-		<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource"  >
-			<property name="driver" value="${spring.datasource.driver-class-name}" />
-		    <property name="driverUrl" value="${spring.datasource.url}" />
-		    <property name="user" value="${spring.datasource.username}"/>
+		<bean id="dataSource"  class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="driverClassName" value="${spring.datasource.driver-class-name}" />
+		    <property name="url" value="${spring.datasource.url}" />
+		    <property name="username" value="${spring.datasource.username}"/>
 		    <property name="password" value="${spring.datasource.password}"/>
 		</bean>
 	

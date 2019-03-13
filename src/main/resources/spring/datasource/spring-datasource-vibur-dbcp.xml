@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+		
+		
+		<!-- Vibur DBCP dataSource bean definition: -->
+		<bean id="dataSource" class="org.vibur.dbcp.ViburDBCPDataSource" init-method="start" destroy-method="terminate">
+		    <property name="jdbcUrl" value="${spring.datasource.url}" />
+		    <property name="username" value="${spring.datasource.username}"/>
+		    <property name="password" value="${spring.datasource.password}"/>
+		
+		    <property name="poolInitialSize" value="10" />
+		    <property name="poolMaxSize"  value="100" />
+		
+		    <property name="connectionIdleLimitInSeconds" value="30" />
+		    <property name="testConnectionQuery" value="isValid" />
+		
+		    <property name="logQueryExecutionLongerThanMs" value="500"/>
+		    <property name="logStackTraceForLongQueryExecution" value="true"/>
+		
+		    <property name="statementCacheMaxSize" value="200"/>
+		</bean>
+	
+	
+	
+	
+
+</beans>
