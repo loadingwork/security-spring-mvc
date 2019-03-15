@@ -6,10 +6,11 @@
      http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 
-	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
 		<property name="database" value="MYSQL" />
 		<property name="generateDdl" value="true" />
 	</bean>
+	
 	
 	<!-- 配置EntityManagerFactory -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -17,7 +18,13 @@
 		<!-- 扫描实体 -->
 		<property name="packagesToScan" value="com.lw.mvc.jpa.entity" />
 		<property name="jpaVendorAdapter"  ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="eclipselink.weaving">false</prop>
+			</props>
+		</property>
 	</bean>
+	
 	
 	<!-- 配置repositories -->
 	<!-- 扫描持久化接口 -->
@@ -27,6 +34,8 @@
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	
 	
 	
 

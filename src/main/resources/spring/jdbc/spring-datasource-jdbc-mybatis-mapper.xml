@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+		
+		
+		<!-- 配置SqlSessionFactory -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	        <property name="dataSource" ref="dataSource"/>
+	        <property name="mapperLocations">
+	            <array>
+	                <value>classpath:mapper-tk/mapper/**/*.xml</value>
+	            </array>
+	        </property>
+	        <property name="typeAliasesPackage" value="com.lw.mvc.mappertk.model"/>
+	        <property name="plugins">
+	            <array>
+	                <bean class="com.github.pagehelper.PageInterceptor">
+	                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+	                    <property name="properties">
+	                        <value>
+	                            helperDialect=mysql
+	                            reasonable=true
+	                            supportMethodsArguments=true
+	                            params=count=countSql
+	                            autoRuntimeDialect=true
+	                        </value>
+	                    </property>
+	                </bean>
+	            </array>
+	        </property>
+	    </bean>
+	    
+	    <!-- SqlSession模板类实例 -->
+	    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+	        <constructor-arg index="0" ref="sqlSessionFactory"/>
+	    </bean>
+	    
+	    <!-- 配置mapper注解扫描 -->
+	    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+	        <property name="basePackage" value="com.lw.mvc.mappertk.mapper"/>
+	    </bean>
+
+
+</beans>

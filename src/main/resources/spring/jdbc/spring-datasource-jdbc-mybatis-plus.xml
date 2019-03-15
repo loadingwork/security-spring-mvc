@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+		
+		
+		<!-- Spring整合Mybatis，更多查看文档：http://mp.baomidou.com -->
+		<!-- 
+		com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean  V2.0
+		com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean  V3.0
+		 -->
+	    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+	        <property name="dataSource" ref="dataSource"/>
+	        <!-- 自动扫描Mapping.xml文件 -->
+	        <property name="mapperLocations" >
+	        	<list>
+	        		<value>classpath:mybatis-plus/mapper/*/*.xml</value>
+	        	</list>
+	        </property>
+	        <property name="configLocation" value="classpath:mybatis-plus/mybatis-config.xml"/>
+	        <property name="typeAliasesPackage" value="com.lw.mvc.mybatisplus.model.*"/>
+	        <property name="typeEnumsPackage" value="com.lw.mvc.mybatisplus.enums"/>
+	        <property name="plugins">
+	            <array>
+	                <!-- 分页插件配置 -->
+	                <!-- 
+	                com.baomidou.mybatisplus.plugins.PaginationInterceptor V2.0
+	                com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor
+	                 -->
+	                <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor">
+	                </bean>
+	            </array>
+	        </property>
+		    <!-- 全局配置注入 -->
+		    <property name="globalConfig" ref="globalConfig" />
+		</bean>
+		
+		
+		<!-- 
+		com.baomidou.mybatisplus.entity.GlobalConfiguration 2.0
+		
+		 -->
+		<bean id="globalConfig" class="com.baomidou.mybatisplus.core.config.GlobalConfig">
+		</bean>
+		
+		<!-- SqlSession模板类实例 -->
+		<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	 		<constructor-arg index="0" ref="sqlSessionFactory" />
+	    </bean>
+	
+	    <!-- MyBatis 动态扫描  -->
+	    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	        <property name="basePackage" value="com.lw.mvc.mybatisplus.mapper"/>
+	    </bean>
+
+
+</beans>
