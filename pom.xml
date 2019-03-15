@@ -432,13 +432,18 @@
 		    <artifactId>org.eclipse.persistence.jpa</artifactId>
 		    <version>2.7.4</version>
 		</dependency>
+		
+		<!-- beetl  -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-instrument-tomcat</artifactId>
-		    <version>4.3.22.RELEASE</version>
+	        <groupId>com.ibeetl</groupId>
+	        <artifactId>beetl</artifactId>
+	        <version>2.9.3</version>
 		</dependency>
-		
-		
+		<dependency>
+		    <groupId>com.ibeetl</groupId>
+		    <artifactId>beetlsql</artifactId>
+		    <version>2.11.1</version>
+		</dependency>
 		
 		
 		

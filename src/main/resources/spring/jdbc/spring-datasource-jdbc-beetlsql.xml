@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean name="beetlSqlScannerConfigurer" class="org.beetl.sql.ext.spring4.BeetlSqlScannerConfigurer">
+		<!-- 哪些类可以自动注入 -->
+		<property name="basePackage" value="com.lw.mvc.dao" />
+		<property name="daoSuffix" value="Dao" />
+		<property name="sqlManagerFactoryBeanName" value="sqlManagerFactoryBean" />
+	</bean>
+	
+	
+	<bean id="sqlManagerFactory" class="org.beetl.sql.ext.spring4.SqlManagerFactoryBean">
+		<property name="cs">
+			<bean class="org.beetl.sql.ext.spring4.BeetlSqlDataSource">
+				<property name="masterSource" ref="dataSource"></property>
+			</bean>
+		</property>
+		<property name="dbStyle">
+			<bean class="org.beetl.sql.core.db.MySqlStyle">
+			</bean>
+		</property>
+		<property name="sqlLoader">
+			<bean class="org.beetl.sql.core.ClasspathLoader">
+				<property name="sqlRoot" value="/sql"></property>
+			</bean>
+		</property>
+		<property name="nc">
+			<bean class="org.beetl.sql.core.UnderlinedNameConversion">
+			</bean>
+		</property>
+		<property name="interceptors">
+			<list>
+				<bean class="org.beetl.sql.ext.DebugInterceptor"></bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+
+</beans>
