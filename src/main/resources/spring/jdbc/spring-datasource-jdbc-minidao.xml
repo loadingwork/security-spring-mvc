@@ -6,7 +6,34 @@
      http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 	
+	<!-- MiniDao动态代理类 -->
+	<bean id="miniDaoHandler" class="org.jeecgframework.minidao.factory.MiniDaoBeanScannerConfigurer">
+	    <!-- 是使用什么字母做关键字Map的关键字 默认值origin 即和sql保持一致,lower小写(推荐),upper 大写 -->
+	    <property name="keyType" value="lower"></property>
+	    <!-- 格式化sql -->
+	    <property name="formatSql" value="false"  />
+	    <!-- 输出sql -->
+	    <property name="showSql" value="true"  />
+	    <!-- 数据库类型 -->
+	    <property name="dbType" value="mysql"  />
+	    <!-- dao 扫描地址,配置符合spring方式 -->
+	    <property name="basePackage" value="com.lw.mvc.minidao.dao" />
+	    <!-- 使用的注解,默认是Minidao,推荐 Repository-->
+	    <property name="annotation" value="org.springframework.stereotype.Repository"  />
+	</bean>
 	
+	<!-- JDBC配置 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	    <property name="dataSource">
+	        <ref bean="dataSource" />
+	    </property>
+	</bean>
+	
+	<!-- JDBC 占位符配置 -->
+	<bean id="namedParameterJdbcTemplate"
+	    class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+	    <constructor-arg ref="dataSource" />
+	</bean>
 	
 	
 	
