@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiResourceLocking="false" privileged="true" >
+
+    <Resource name="jdbc/datasource"
+               auth="Container"
+               type="javax.sql.DataSource"
+               url="jdbc:mysql://localhost:3306/security_spring_mvc"
+               initialSize="2"
+               maxActive="20"
+               maxIdle="20"
+               minIdle="2"
+               maxWait="10000"
+               removeAbandoned="true"
+               username="root"
+               password="root"
+               driverClassName="com.mysql.jdbc.Driver"
+               />
+
+</Context>

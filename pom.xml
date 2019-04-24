@@ -99,6 +99,12 @@
 				<type>pom</type>
 			</dependency>
 			
+			<dependency>
+			  <groupId>com.mchange</groupId>
+			  <artifactId>c3p0</artifactId>
+			  <version>[0.9.5.4,)</version>
+			</dependency>
+			
 		</dependencies>
 
 	</dependencyManagement>
@@ -297,8 +303,8 @@
 		<dependency>
 		    <groupId>com.mchange</groupId>
 		    <artifactId>c3p0</artifactId>
-		    <version>0.9.5.3</version>
 		</dependency>
+		
 		
 		<!-- spring-datasource-dbcp1.xml -->
 		<dependency>
@@ -503,6 +509,7 @@
 
 
 	<!-- 编译配置 -->
+	<!-- 产线  clean package -P    -->
 	<build>
 		<finalName>${project.artifactId}-${env}</finalName>
 
